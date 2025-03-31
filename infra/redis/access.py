@@ -1,6 +1,6 @@
 import redis.asyncio as redis
 
-from core.redis.client import RedisClient
+from infra.redis.client import RedisClient
 
 
 async def init_redis_client() -> None:

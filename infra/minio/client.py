@@ -5,8 +5,8 @@ from aiobotocore.session import get_session, AioSession
 from types_aiobotocore_s3.client import S3Client
 from botocore.exceptions import ClientError
 
-from core.logger import logger
-from core.settings import settings
+from infra.logger import logger
+from infra.settings import settings
 
 
 class MinIOClient:

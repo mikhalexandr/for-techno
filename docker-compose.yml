@@ -45,7 +45,7 @@ services:
 
   minio:
     container_name: minio
-    build: core/minio/config
+    build: infra/minio/config
     environment:
       MINIO_ROOT_USER: mikhalexandr
       MINIO_ROOT_PASSWORD: phptop123

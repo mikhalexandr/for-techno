@@ -1,7 +1,7 @@
 import redis.asyncio as redis
 
-from core.logger import logger
-from core.settings import settings
+from infra.logger import logger
+from infra.settings import settings
 
 
 class RedisClient:

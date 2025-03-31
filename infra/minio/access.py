@@ -1,4 +1,4 @@
-from core.minio.client import MinIOClient
+from infra.minio.client import MinIOClient
 
 
 async def init_minio_client() -> None:

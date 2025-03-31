@@ -4,9 +4,9 @@ from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncEngine, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
-from core.logger import logger
-from core.postgres.__all_models import load_all_models
-from core.settings import settings
+from infra.logger import logger
+from infra.postgres.__all_models import load_all_models
+from infra.settings import settings
 
 
 class Base(DeclarativeBase):

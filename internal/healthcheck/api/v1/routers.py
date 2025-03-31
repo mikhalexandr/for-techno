@@ -12,8 +12,9 @@ router = APIRouter(
 
 @router.get(
     "/",
+    status_code=200,
     response_model=HealthcheckRootRs,
-    include_in_schema=False
+    include_in_schema=False,
 )
 async def root() -> HealthcheckRootRs:
     current_time = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
@@ -25,6 +26,7 @@ async def root() -> HealthcheckRootRs:
 
 @router.get(
     "/api/ping",
+    status_code=200,
     response_model=HealthcheckPingRs
 )
 async def ping() -> HealthcheckPingRs:

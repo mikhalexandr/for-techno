@@ -1,4 +1,10 @@
+infra/keycloak_/config
+infra/minio/config
+
 .gitignore
 
 docker-compose.yml
 Dockerfile
+
+poetry.lock
+pyproject.toml

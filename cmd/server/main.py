@@ -5,11 +5,12 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from core.logger import init_logger, logger
-from core.minio.access import init_minio_client, close_minio_client
-from core.postgres.access import init_postgres_client, close_postgres_client
-from core.redis.access import init_redis_client, close_redis_client
-from core.settings import settings
+from infra.logger import init_logger, logger
+from infra.keycloak_.access import init_keycloak_client, close_keycloak_client
+from infra.minio.access import init_minio_client, close_minio_client
+from infra.postgres.access import init_postgres_client, close_postgres_client
+from infra.redis.access import init_redis_client, close_redis_client
+from infra.settings import settings
 from internal import init_routers
 
 
@@ -18,11 +19,13 @@ async def lifespan(
         _app: FastAPI
 ) -> AsyncGenerator:
     init_logger()
+    await init_keycloak_client()
     await init_minio_client()
     await init_postgres_client()
     await init_redis_client()
     logger.info("All resources have been successfully initialized")
     yield
+    await close_keycloak_client()
     await close_minio_client()
     await close_postgres_client()
     await close_redis_client()

@@ -1,6 +1,6 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from core.postgres.client import PostgresClient
+from infra.postgres.client import PostgresClient
 
 
 async def init_postgres_client() -> None:
