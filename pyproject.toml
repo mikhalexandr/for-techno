@@ -3,7 +3,7 @@ name = "for-techno"
 version = "1.0.0"
 description = ""
 authors = [
-    {name = "mikhalexandr",email = "mikhalchenkov22@gmail.com"}
+    {name = "Alexandr Mikhalchenkov",email = "mikhalchenkov22@gmail.com"}
 ]
 license = {text = "MIT License (https://opensource.org/licenses/MIT)"}
 readme = "README.md"
