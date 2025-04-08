@@ -1,10 +1,9 @@
+.venv/
+
 infra/keycloak_/config
-infra/minio/config
+logs/
 
 .gitignore
 
 docker-compose.yml
 Dockerfile
-
-poetry.lock
-pyproject.toml

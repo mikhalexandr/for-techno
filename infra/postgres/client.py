@@ -49,7 +49,7 @@ class PostgresClient:
         cls._engine = create_async_engine(settings.get_postgres_url(), max_overflow=1100, pool_size=1000)
         cls._async_session_maker = async_sessionmaker(bind=cls._engine, expire_on_commit=False)
 
-        load_all_models([])
+        load_all_models(["internal.user.models"])
 
         async with cls._engine.begin() as conn:
             await conn.run_sync(Base.metadata.create_all)
@@ -64,7 +64,7 @@ class PostgresClient:
             await cls._engine.dispose()
             cls._engine = None
             cls._async_session_maker = None
-            logger.info("Postgres closed")
+        logger.info("Postgres closed")
 
     @classmethod
     def get_async_session(

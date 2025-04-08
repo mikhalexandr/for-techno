@@ -6,8 +6,11 @@ RUN pip install --no-cache-dir poetry
 
 COPY pyproject.toml poetry.lock ./
 
-RUN poetry install --no-root
+RUN poetry config virtualenvs.create false \
+    && poetry install --no-root --no-cache
 
 COPY . .
 
-CMD ["poetry", "run", "uvicorn", "cmd.server.main:app"]
+RUN find . -type d -name "__pycache__" -exec rm -r {} +
+
+CMD ["uvicorn", "cmd.server.main:app", "--host", "0.0.0.0", "--port", "5252"]

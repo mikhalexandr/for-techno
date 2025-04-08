@@ -1,10 +1,4 @@
 from fastapi import HTTPException
-from pydantic import BaseModel
-
-
-class CustomExceptionResponse(BaseModel):
-    status: str
-    message: str
 
 
 class CustomException(Exception):
@@ -41,5 +35,6 @@ def handle_exception(
             detail={
                 "status": "error",
                 "message": "Internal Server Error",
+                "error": str(e)
             }
         )

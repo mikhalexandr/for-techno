@@ -1,6 +1,19 @@
-name: undefined
+name: tetris
 
 services:
+  api:
+    container_name: api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - ./.env
+    ports:
+      - "5252:5252"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
   keycloak:
     container_name: keycloak
     image: quay.io/keycloak/keycloak
@@ -8,9 +21,10 @@ services:
       KEYCLOAK_ADMIN: mikhalexandr
       KEYCLOAK_ADMIN_PASSWORD: phptop123
     ports:
-      - "8095:8095"
+      - "8095:8080"
     volumes:
-      - ./infra/keycloak_/config:/opt/keycloak/data/import
+      - ./infra/keycloak_/config/keycloak-user-listener-1.0.jar:/opt/keycloak/providers/keycloak-user-listener-1.0.jar
+      - ./infra/keycloak_/config/keycloak-user-realm.json:/opt/keycloak/data/import/keycloak-user-realm.json
     command:
       - start-dev
       - --import-realm
@@ -24,30 +38,13 @@ services:
       timeout: 5s
       retries: 5
 
-  minio:
-    container_name: minio
-    build: infra/minio/config
-    environment:
-      MINIO_ROOT_USER: mikhalexandr
-      MINIO_ROOT_PASSWORD: phptop123
-    ports:
-      - "9000:9000"
-      - "9002:9002"
-    volumes:
-      - minio_data:/var/lib/minio/data
-    healthcheck:
-      test: [ "CMD", "sh", "-c", "mc alias set myminio http://localhost:9000 mikhalexandr phptop123 && mc ls myminio" ]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
   postgres:
     container_name: postgres
     image: postgres
     environment:
       POSTGRES_USER: mikhalexandr
       POSTGRES_PASSWORD: phptop123
-      POSTGRES_DB: etalon
+      POSTGRES_DB: tetris
     ports:
       - "5432:5432"
     volumes:
@@ -58,21 +55,6 @@ services:
       timeout: 5s
       retries: 5
 
-  redis:
-    container_name: redis
-    image: redis
-    ports:
-      - "6379:6379"
-    volumes:
-      - redis_data:/var/lib/redis/data
-    healthcheck:
-      test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
 
 volumes:
-  minio_data:
   postgres_data:
-  redis_data:

@@ -5,21 +5,13 @@ from pydantic_settings import BaseSettings
 class Settings(BaseSettings):
     server_address: str = Field(..., env="SERVER_ADDRESS")
 
-    keycloak_url: str = Field(..., env="KEYCLOAK_URL")
+    keycloak_server_url: str = Field(..., env="KEYCLOAK_SERVER_URL")
     keycloak_client_id: str = Field(..., env="KEYCLOAK_CLIENT_ID")
     keycloak_client_secret_key: str = Field(..., env="KEYCLOAK_CLIENT_SECRET_KEY")
-    keycloak_admin_client_secret: str = Field(..., env="KEYCLOAK_ADMIN_CLIENT_SECRET")
-    keycloak_realm: str = Field(..., env="KEYCLOAK_REALM")
-    keycloak_callback_uri: str = Field(..., env="KEYCLOAK_CALLBACK_URI")
+    keycloak_realm_name: str = Field(..., env="KEYCLOAK_REALM_NAME")
 
-    minio_url: str = Field(..., env="MINIO_URL")
-    minio_access_key: str = Field(..., env="MINIO_ACCESS_KEY")
-    minio_secret_key: str = Field(..., env="MINIO_SECRET_KEY")
-    minio_session_token: str = Field(..., env="MINIO_SESSION_TOKEN")
-    minio_region_name: str = Field(..., env="MINIO_REGION_NAME")
-    minio_verify: str = Field(..., env="MINIO_VERIFY")
-    minio_secure: bool = Field(..., env="MINIO_SECURE")
-    minio_bucket: str = Field(..., env="MINIO_BUCKET")
+    llama3_api_url: str = Field(..., env="LLAMA3_API_URL")
+    llama3_model: str = Field(..., env="LLAMA3_MODEL")
 
     postgres_username: str = Field(..., env="POSTGRES_USERNAME")
     postgres_password: str = Field(..., env="POSTGRES_PASSWORD")
@@ -35,14 +27,8 @@ class Settings(BaseSettings):
             f"/{self.postgres_database}"
         )
 
-    redis_host: str = Field(..., env="REDIS_HOST")
-    redis_port: str = Field(..., env="REDIS_PORT")
-
-    def get_redis_url(self) -> str:
-        return f"redis://{self.redis_host}:{self.redis_port}"
-
     class Config:
-        env_file = "./.env.dev"
+        env_file = "./.env"
         env_file_encoding = "utf-8"
 
 

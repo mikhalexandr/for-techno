@@ -1,11 +1,11 @@
-from fastapi_keycloak import FastAPIKeycloak
+from keycloak import KeycloakOpenID
 
 from infra.logger import logger
 from infra.settings import settings
 
 
 class KeycloakClient:
-    _client: FastAPIKeycloak | None = None
+    _client: KeycloakOpenID | None = None
 
     @classmethod
     async def init_client(
@@ -15,13 +15,11 @@ class KeycloakClient:
             logger.error("Keycloak is already initialized")
             return None
 
-        cls._client = FastAPIKeycloak(
-            server_url=settings.keycloak_url,
+        cls._client = KeycloakOpenID(
+            server_url=settings.keycloak_server_url,
             client_id=settings.keycloak_client_id,
             client_secret_key=settings.keycloak_client_secret_key,
-            admin_client_secret=settings.keycloak_admin_client_secret,
-            realm=settings.keycloak_realm,
-            callback_uri=settings.keycloak_callback_uri
+            realm_name=settings.keycloak_realm_name,
         )
         logger.info("Keycloak initialized")
 
@@ -31,10 +29,10 @@ class KeycloakClient:
     ) -> None:
         if cls._client is not None:
             cls._client = None
-            logger.info("Keycloak closed")
+        logger.info("Keycloak closed")
 
     @classmethod
     def get_client(
             cls
-    ) -> FastAPIKeycloak:
+    ) -> KeycloakOpenID:
         return cls._client
