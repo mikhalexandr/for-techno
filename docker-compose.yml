@@ -14,12 +14,35 @@ services:
       postgres:
         condition: service_healthy
 
+  postgres-auth:
+    container_name: postgres-auth
+    image: postgres
+    environment:
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: phptop123
+      POSTGRES_DB: keycloak
+    ports:
+      - "4242:5432"
+    volumes:
+      - postgres_auth_data:/var/lib/postgres/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   keycloak:
     container_name: keycloak
     image: quay.io/keycloak/keycloak
     environment:
+      KC_DB: postgres
+      KC_DB_URL_HOST: postgres-auth
+      KC_DB_URL_DATABASE: keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: phptop123
       KEYCLOAK_ADMIN: mikhalexandr
       KEYCLOAK_ADMIN_PASSWORD: phptop123
+      KC_HEALTH_ENABLED: true
     ports:
       - "8095:8080"
     volumes:
@@ -37,6 +60,9 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    depends_on:
+      postgres-auth:
+        condition: service_healthy
 
   postgres:
     container_name: postgres
@@ -57,4 +83,5 @@ services:
 
 
 volumes:
+  postgres_auth_data:
   postgres_data:
