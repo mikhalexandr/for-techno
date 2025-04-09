@@ -1,4 +1,4 @@
-from keycloak import KeycloakOpenID
+from typing import Dict
 
 from infra.keycloak_.client import KeycloakClient
 
@@ -11,5 +11,5 @@ async def close_keycloak_client() -> None:
     await KeycloakClient.close_client()
 
 
-async def get_keycloak_client() -> KeycloakOpenID:
-    return KeycloakClient.get_client()
+async def authenticate() -> Dict:
+    return KeycloakClient.authenticate()

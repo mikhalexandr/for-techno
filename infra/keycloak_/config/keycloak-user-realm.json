@@ -58,7 +58,7 @@
       },
       {
         "id": "56579b85-9e4a-4586-8f4e-512f33f41e78",
-        "name": "default-roles-techarrow",
+        "name": "default-roles-tetris-user",
         "description": "${role_default-roles}",
         "composite": true,
         "composites": {
@@ -408,7 +408,7 @@
   "groups": [],
   "defaultRole": {
     "id": "56579b85-9e4a-4586-8f4e-512f33f41e78",
-    "name": "default-roles-techarrow",
+    "name": "default-roles-tetris-user",
     "description": "${role_default-roles}",
     "composite": true,
     "clientRole": false,
@@ -481,13 +481,13 @@
       "clientId": "account",
       "name": "${client_account}",
       "rootUrl": "${authBaseUrl}",
-      "baseUrl": "/realms/techarrow/account/",
+      "baseUrl": "/realms/tetris-user/account/",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "redirectUris": [
-        "/realms/techarrow/account/*"
+        "/realms/tetris-user/account/*"
       ],
       "webOrigins": [],
       "notBefore": 0,
@@ -527,13 +527,13 @@
       "clientId": "account-console",
       "name": "${client_account-console}",
       "rootUrl": "${authBaseUrl}",
-      "baseUrl": "/realms/techarrow/account/",
+      "baseUrl": "/realms/tetris-user/account/",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "redirectUris": [
-        "/realms/techarrow/account/*"
+        "/realms/tetris-user/account/*"
       ],
       "webOrigins": [],
       "notBefore": 0,
@@ -763,13 +763,13 @@
       "clientId": "security-admin-console",
       "name": "${client_security-admin-console}",
       "rootUrl": "${authAdminUrl}",
-      "baseUrl": "/admin/techarrow/console/",
+      "baseUrl": "/admin/tetris-user/console/",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "redirectUris": [
-        "/admin/techarrow/console/*"
+        "/admin/tetris-user/console/*"
       ],
       "webOrigins": [
         "+"

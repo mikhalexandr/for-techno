@@ -9,6 +9,7 @@ class Settings(BaseSettings):
     keycloak_client_id: str = Field(..., env="KEYCLOAK_CLIENT_ID")
     keycloak_client_secret_key: str = Field(..., env="KEYCLOAK_CLIENT_SECRET_KEY")
     keycloak_realm_name: str = Field(..., env="KEYCLOAK_REALM_NAME")
+    keycloak_token_url: str = Field(..., env="KEYCLOAK_TOKEN_URL")
 
     llama3_api_url: str = Field(..., env="LLAMA3_API_URL")
     llama3_model: str = Field(..., env="LLAMA3_MODEL")

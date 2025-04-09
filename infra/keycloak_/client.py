@@ -1,4 +1,8 @@
+from typing import Dict
 from keycloak import KeycloakOpenID
+from keycloak.exceptions import KeycloakAuthenticationError
+from fastapi import Depends, HTTPException
+from fastapi.security import OAuth2PasswordBearer
 
 from infra.logger import logger
 from infra.settings import settings
@@ -32,7 +36,21 @@ class KeycloakClient:
         logger.info("Keycloak closed")
 
     @classmethod
-    def get_client(
-            cls
-    ) -> KeycloakOpenID:
-        return cls._client
+    def authenticate(
+            cls,
+            token: str = Depends(OAuth2PasswordBearer(tokenUrl=settings.keycloak_token_url))
+    ) -> Dict:
+        try:
+            token_info = cls._client.introspect(token)
+            if not token_info["active"]:
+                raise HTTPException(
+                    status_code=401,
+                    detail="Inactive token"
+                )
+            return token_info
+        except KeycloakAuthenticationError:
+            logger.error(f"Invalid token")
+            raise HTTPException(
+                status_code=401,
+                detail="Invalid token"
+            )
